@@ -85,3 +85,6 @@ The goal is to provide a lightweight portal where users can log in and manage em
     Improve form validation and error handling.
 
     Enhance UI with more detailed employee profiles and charts.
+
+
+## Thank you from Soma

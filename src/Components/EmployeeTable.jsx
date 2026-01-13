@@ -1,5 +1,4 @@
-export default function EmployeeTable({ employees }) { 
-    console.log("employees", employees)
+export default function EmployeeTable({ employees, onEdit, onPrint}) { 
     return (
         <>
             <div>
@@ -33,9 +32,9 @@ export default function EmployeeTable({ employees }) {
                             </span>
                         </p>
                         <div className="mt-2 space-x-2">
-          <button className="btn-secondary text-sm">Edit</button>
+          <button className="btn-secondary text-sm" onClick={() => onEdit(emp)}>Edit</button>
           <button className="btn-secondary text-sm text-red-600">Delete</button>
-          <button className="btn-secondary text-sm">Print</button>
+          <button className="btn-secondary text-sm" onClick={()=> onPrint(emp)}>Print</button>
                         </div>
             </div>
             ))}
@@ -51,7 +50,7 @@ export default function EmployeeTable({ employees }) {
           <th className="p-3 text-left">Name</th>
           <th className="p-3 text-left hidden sm:table-cell">Gender</th>
           <th className="p-3 text-left hidden sm:table-cell">DOB</th>
-          <th className="p-3 text-left hidden lg:table-cell">State</th>
+          <th className="p-3 text-left">State</th>
           <th className="p-3 text-left">Status</th>
           <th className="p-3 text-left">Actions</th>
         </tr>
@@ -73,7 +72,7 @@ export default function EmployeeTable({ employees }) {
             <td className="p-3">{emp.name}</td>
             <td className="p-3 hidden sm:table-cell">{emp.gender}</td>
             <td className="p-3 hidden sm:table-cell">{emp.dob}</td>
-            <td className="p-3 hidden lg:table-cell">{emp.state}</td>
+            <td className="p-3">{emp.state}</td>
             <td className="p-3">
               <span
                 className={`px-2 py-1 text-xs rounded-full ${
@@ -86,9 +85,9 @@ export default function EmployeeTable({ employees }) {
               </span>
             </td>
             <td className="p-3 space-x-2">
-              <button className="btn-secondary text-sm">Edit</button>
+              <button className="btn-secondary text-sm" onClick={()=> onEdit(emp)}>Edit</button>
               <button className="btn-secondary text-sm text-red-600">Delete</button>
-              <button className="btn-secondary text-sm">Print</button>
+              <button className="btn-secondary text-sm" onClick={()=> onPrint(emp)}>Print</button>
             </td>
           </tr>
         ))}

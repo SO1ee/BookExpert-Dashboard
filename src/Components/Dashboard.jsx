@@ -3,11 +3,13 @@ import { employees as mockEmployees } from "../data/employees";
 import EmployeeTable from "./EmployeeTable";
 import Navbar from "./Navbar";
 import StatCard from "./StatCard";
+import EditEmployeeForm from "./EditEmployeeForm"
 
 export default function Dashboard() { 
     const [employees, setEmployees] = useState(mockEmployees);
     const [searchInput, setSearchInput] = useState("");
     const [search, setSearch] = useState("");
+    const [editingEmployees, setEditingEmployees] = useState(null);
 
     // Search filter
     const filteredEmployees = employees.filter(emp =>
@@ -19,6 +21,38 @@ export default function Dashboard() {
         return (currentValue.isActive === true)
     }).length;
     const inActive = totalEmployee - active;
+
+
+    //Print Handler
+    const handlePrint = (employee) => {
+        const html = ` <!DOCTYPE html>
+                        <html>
+                        <head>
+                        <title>Employee Info</title>
+                        <style>
+                         body { font-family: Arial, sans-serif; padding: 20px; }
+                        h2 { color: #333; }
+                        p { margin: 5px 0; }
+                        </style>
+                        </head>
+                        <body>
+                            <h2>Employee Details</h2>
+                            <p><strong>Name:</strong> ${employee.name}</p>
+                            <p><strong>State:</strong> ${employee.state}</p>
+                            <p><strong>DOB:</strong> ${employee.dob}</p>
+                            <p><strong>Status:</strong> ${employee.isActive ? "Active" : "Inactive"}</p>
+                        </body>
+                    </html>
+                    `;
+                // Create blob and URL 
+                    const blob = new Blob([html], { type: "text/html" }); const url = URL.createObjectURL(blob);
+        // Open new window with blob URL
+        const printWindow = window.open(url, "_blank");
+        // Wait for window to load, then print
+        printWindow.onload = () => { printWindow.print(); URL.revokeObjectURL(url); // cleanup 
+        };
+    };
+        
     return (
         <>
             <Navbar />
@@ -61,7 +95,22 @@ export default function Dashboard() {
                 </div>
 
 
-            <EmployeeTable employees={filteredEmployees}/>
+            <EmployeeTable employees={filteredEmployees} onEdit={setEditingEmployees} onPrint={handlePrint}/>
+
+            {editingEmployees && (
+                <EditEmployeeForm
+                    employee={editingEmployees}
+                    onClose={() => setEditingEmployees(null)}
+                    onSave={(updatedEmployee) => { 
+                        setEmployees((prev) =>
+                            prev.map((emp) =>
+                                emp.id === updatedEmployee.id ? updatedEmployee : emp
+                            )
+                        );
+                        setEditingEmployees(null);
+                    }}
+                />
+            )}
         </>
     )
 }

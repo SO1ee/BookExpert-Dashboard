@@ -43,8 +43,8 @@ export default function Login() {
                             {error && (<p className="text-red-500 text-sm">{error}</p>)}
 
                             <button
-                                className="w-full py-2 px-4 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 
-                                 text-white font-semibold shadow-md hover:from-blue-600 hover:to-indigo-700 
+                                className="w-full py-2 px-4 rounded-lg bg-gradient-to-r from-white-500 to-white-600 
+                                 text-white font-semibold shadow-md hover:from-white-600 hover:to-white-700 
                                 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
                                 onClick={handleLogin}
                             >

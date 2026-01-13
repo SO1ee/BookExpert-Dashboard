@@ -27,7 +27,7 @@ The goal is to provide a lightweight portal where users can log in and manage em
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd employee-dashboard
+   cd Dashboard
 ## 2.Install Dependencies
     npm install
 ## 3.Start the development server
